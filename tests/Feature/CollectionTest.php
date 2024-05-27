@@ -206,4 +206,13 @@ class CollectionTest extends TestCase
         ], $result->all());
         self::assertEquals(["Tian" => 80], $result2->all());
     }
+
+    public function testTesting()
+    {
+        $collection = collect(["Christian", "Budi", "Dyla"]);
+        self::assertTrue($collection->contains("Dyla"));
+        self::assertTrue($collection->contains(function ($item, $key) {
+            return $item == "Christian";
+        }));
+    }
 }
