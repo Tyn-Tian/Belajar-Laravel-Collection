@@ -398,4 +398,13 @@ class CollectionTest extends TestCase
         $result = $collection->max();
         self::assertEquals(9, $result);
     }
+
+    public function testReduce()
+    {        
+        $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $result = $collection->reduce(function ($carry, $item) {
+            return $carry + $item;
+        });
+        self::assertEquals(45, $result);
+    }
 }
