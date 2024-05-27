@@ -156,4 +156,12 @@ class CollectionTest extends TestCase
             "Coding", "Gaming", "Reading", "Writing"
         ], $result->all());
     }
+
+    public function testJoin()
+    {
+        $collection = collect(["Christian", "Budi", "Zahra"]);
+
+        self::assertEquals("Christian-Budi-Zahra", $collection->join("-"));
+        self::assertEquals("Christian-Budi_Zahra", $collection->join("-", "_"));
+    }
 }
