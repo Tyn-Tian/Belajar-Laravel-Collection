@@ -21,4 +21,15 @@ class CollectionTest extends TestCase
             self::assertEquals($key + 1, $value);
         }
     }
+
+    public function testCrud()
+    {
+        $collection = collect([]);
+        $collection->push(1, 2, 3);
+        self::assertEqualsCanonicalizing([1, 2, 3], $collection->all());
+
+        $result = $collection->pop();
+        self::assertEquals(3, $result);
+        self::assertEqualsCanonicalizing([1, 2], $collection->all());
+    }
 }
