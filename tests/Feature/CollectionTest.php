@@ -164,4 +164,29 @@ class CollectionTest extends TestCase
         self::assertEquals("Christian-Budi-Zahra", $collection->join("-"));
         self::assertEquals("Christian-Budi_Zahra", $collection->join("-", "_"));
     }
+
+    public function testFilter()
+    {
+        $collection = collect([
+            "Chris" => 100,
+            "Tian" => 80,
+            "Budi" => 90
+        ]);
+        $result = $collection->filter(function ($item, $key) {
+            return $item >= 90;
+        });
+        self::assertEquals([
+            "Chris" => 100,
+            "Budi" => 90
+        ], $result->all());
+    }
+
+    public function testFilterIndex()
+    {
+        $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        $result = $collection->filter(function ($value) {
+            return $value % 2 == 0;
+        });
+        self::assertEqualsCanonicalizing([2, 4, 6, 8, 10], $result->all());
+    }
 }
