@@ -87,4 +87,40 @@ class CollectionTest extends TestCase
             "HR" => collect(["Callista"])
         ], $result->all());
     }
+
+    public function testZip()
+    {
+        $collection = collect([1, 2, 3]);
+        $collection2 = collect([4, 5, 6]);
+        $collection3 = $collection->zip($collection2);
+
+        self::assertEquals([
+            collect([1, 4]),
+            collect([2, 5]),
+            collect([3, 6])
+        ], $collection3->all());
+    }
+
+    public function testConcat()
+    {
+        $collection = collect([1, 2, 3]);
+        $collection2 = collect([4, 5, 6]);
+        $collection3 = $collection->concat($collection2);
+
+        self::assertEquals([
+            1, 2, 3, 4, 5, 6
+        ], $collection3->all());
+    }
+
+    public function testCombine()
+    {
+        $collection = collect(["name", "country"]);
+        $collection2 = collect(["Christian", "Indonesia"]);
+        $collection3 = $collection->combine($collection2);
+
+        self::assertEquals([
+            "name" => "Christian",
+            "country" => "Indonesia"
+        ], $collection3->all());
+    }
 }
