@@ -329,4 +329,28 @@ class CollectionTest extends TestCase
         self::assertEqualsCanonicalizing([4, 5, 6], $result->all()[1]->all());
         self::assertEqualsCanonicalizing([7, 8, 9], $result->all()[2]->all());
     }
+
+    public function testFirst()
+    {
+        $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $result = $collection->first();
+        self::assertEquals(1, $result);
+
+        $result = $collection->first(function ($value, $key) {
+            return $value > 5;
+        });
+        self::assertEquals(6, $result);
+    }
+
+    public function testLast()
+    {
+        $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $result = $collection->last();
+        self::assertEquals(9, $result);
+
+        $result = $collection->last(function ($value, $key) {
+            return $value < 5;
+        });
+        self::assertEquals(4, $result);
+    }
 }
