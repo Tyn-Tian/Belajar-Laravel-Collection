@@ -285,4 +285,38 @@ class CollectionTest extends TestCase
         $result = $collection->slice(3, 2);
         self::assertEqualsCanonicalizing([4, 5], $result->all());
     }
+
+    public function testTake()
+    {
+        $collection = collect([1, 2, 3, 4, 5, 6]);
+        $result = $collection->take(3);
+        self::assertEqualsCanonicalizing([1, 2, 3], $result->all());
+
+        $result = $collection->takeUntil(function ($value, $key) {
+            return $value == 3;
+        });
+        self::assertEqualsCanonicalizing([1, 2], $result->all());
+
+        $result = $collection->takeWhile(function ($value, $key) {
+            return $value < 3;
+        });
+        self::assertEqualsCanonicalizing([1, 2], $result->all());
+    }
+
+    public function testSkip()
+    {
+        $collection = collect([1, 2, 3, 4, 5, 6]);
+        $result = $collection->skip(3);
+        self::assertEqualsCanonicalizing([4, 5, 6], $result->all());
+
+        $result = $collection->skipUntil(function ($value, $key) {
+            return $value == 3;
+        });
+        self::assertEqualsCanonicalizing([3, 4, 5, 6], $result->all());
+
+        $result = $collection->skipWhile(function ($value, $key) {
+            return $value < 3;
+        });
+        self::assertEqualsCanonicalizing([3, 4, 5, 6], $result->all());
+    }
 }
